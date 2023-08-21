@@ -1,5 +1,6 @@
 <?php
 
+use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Spatie\Mjml\Mjml;
 
 it('can render mjml without any options', function () {
@@ -19,3 +20,9 @@ it('can render mjml without any options', function () {
 
     expect($html)->toMatchSnapshot();
 });
+
+it('can handle invalid mjml', function() {
+    $invalidMjml =   '<2mjml></2mjml>';
+
+    (new Mjml())->toHtml($invalidMjml);
+})->throws(CouldNotConvertMjml::class, 'Parsing failed. Check your mjml');

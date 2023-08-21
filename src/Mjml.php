@@ -2,6 +2,7 @@
 
 namespace Spatie\Mjml;
 
+use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -109,6 +110,10 @@ class Mjml
         $resultString = $process->getOutput();
 
         $resultProperties = json_decode($resultString, true);
+
+        if (array_key_exists('mjmlError', $resultProperties, )) {
+            throw CouldNotConvertMjml::make($resultProperties['mjmlError']);
+        }
 
         return new MjmlResult($resultProperties);
     }

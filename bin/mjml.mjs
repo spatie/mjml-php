@@ -5,6 +5,14 @@ const args = JSON.parse(process.argv.slice(2));
 const mjml = args[0];
 const options = args[1];
 
-const result = mjml2html(mjml);
+try {
+    const result = mjml2html(mjml);
+} catch (exception) {
+    const errorString = JSON.stringify({mjmlError: exception.toString()});
+
+    process.stdout.write(errorString);
+    process.exit(0);
+}
+
 
 process.stdout.write(JSON.stringify(result));
