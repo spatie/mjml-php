@@ -9,14 +9,21 @@ use Symfony\Component\Process\Process;
 class Mjml
 {
     protected bool $keepComments = true;
+
     protected bool $ignoreIncludes = false;
+
     protected bool $beautify = false;
+
     protected bool $minify = false;
+
     protected ValidationLevel $validationLevel;
+
     protected string $filePath = '?';
+
     protected string $workingDirectory;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->validationLevel = ValidationLevel::Soft;
 
         $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
