@@ -3,7 +3,7 @@
 use Spatie\Mjml\Mjml;
 
 it('can render mjml without any options', function () {
-    $mjml = <<<MJML
+    $mjml = <<<'MJML'
 <mjml>
   <mj-body width="500">
     <mj-section background-color="#EFEFEF">
