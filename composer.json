@@ -16,12 +16,12 @@
     ],
     "require": {
         "php": "^8.1",
-        "symfony/process": "^6.3"
+        "symfony/process": "^6.3.2"
     },
     "require-dev": {
-        "pestphp/pest": "^2.0",
-        "laravel/pint": "^1.2",
-        "spatie/ray": "^1.28"
+        "pestphp/pest": "^2.16",
+        "laravel/pint": "^1.11",
+        "spatie/ray": "^1.37.2"
     },
     "autoload": {
         "psr-4": {
