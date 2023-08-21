@@ -5,8 +5,10 @@ const args = JSON.parse(process.argv.slice(2));
 const mjml = args[0];
 const options = args[1];
 
+let result = ''
+
 try {
-    const result = mjml2html(mjml);
+    result = mjml2html(mjml);
 } catch (exception) {
     const errorString = JSON.stringify({mjmlError: exception.toString()});
 
