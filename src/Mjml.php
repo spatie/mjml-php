@@ -23,6 +23,11 @@ class Mjml
 
     protected string $workingDirectory;
 
+    public static function new(): self
+    {
+        return new static();
+    }
+
     public function __construct()
     {
         $this->validationLevel = ValidationLevel::Soft;
