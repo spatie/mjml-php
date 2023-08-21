@@ -19,7 +19,7 @@ class Mjml
 
     protected ValidationLevel $validationLevel;
 
-    protected string $filePath = '?';
+    protected string $filePath = '.';
 
     protected string $workingDirectory;
 
