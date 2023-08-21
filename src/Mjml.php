@@ -85,13 +85,12 @@ class Mjml
     {
         $arguments = [
             $mjml,
-            $this->configOptions($options)
+            $this->configOptions($options),
         ];
 
         $process = new Process(
             $this->getCommand($arguments),
             $this->workingDirectory,
-            null,
         );
 
         $process->run();
