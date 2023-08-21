@@ -19,7 +19,7 @@ class Mjml
             $mjml,
             [
                 'name' => 'value',
-            ]
+            ],
         ];
 
         $command = [
@@ -43,7 +43,7 @@ class Mjml
             throw new ProcessFailedException($process);
         }
 
-        $resultString =  $process->getOutput();
+        $resultString = $process->getOutput();
 
         $resultProperties = json_decode($resultString, true);
 
@@ -52,6 +52,6 @@ class Mjml
 
     public function getWorkingDirectory()
     {
-        return realpath(dirname(__DIR__) . '/bin');
+        return realpath(dirname(__DIR__).'/bin');
     }
 }
