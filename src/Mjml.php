@@ -8,32 +8,89 @@ use Symfony\Component\Process\Process;
 
 class Mjml
 {
-    public function toHtml(string $mjml): string
-    {
-        return $this->callMjml($mjml)->html();
+    protected bool $keepComments = true;
+    protected bool $ignoreIncludes = false;
+    protected bool $beautify = false;
+    protected bool $minify = false;
+    protected ValidationLevel $validationLevel;
+    protected string $filePath = '?';
+    protected string $workingDirectory;
+
+    public function __construct() {
+        $this->validationLevel = ValidationLevel::Soft;
+
+        $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
     }
 
-    protected function callMjml(string $mjml): MjmlResult
+    public function keepComments(bool $keepComments = true): self
+    {
+        $this->keepComments = $keepComments;
+
+        return $this;
+    }
+
+    public function hideComments(): self
+    {
+        return $this->keepComments(false);
+    }
+
+    public function ignoreIncludes(bool $ignoreIncludes = true): self
+    {
+        $this->ignoreIncludes = $ignoreIncludes;
+
+        return $this;
+    }
+
+    public function beautify(bool $beautify = true): self
+    {
+        $this->beautify = $beautify;
+
+        return $this;
+    }
+
+    public function minify(bool $minify = true): self
+    {
+        $this->minify = $minify;
+
+        return $this;
+    }
+
+    public function validationLevel(ValidationLevel $validationLevel): self
+    {
+        $this->validationLevel = $validationLevel;
+
+        return $this;
+    }
+
+    public function filePath(string $filePath): self
+    {
+        $this->filePath = $filePath;
+
+        return $this;
+    }
+
+    public function workingDirectory(string $workingDirectory): self
+    {
+        $this->workingDirectory = $workingDirectory;
+
+        return $this;
+    }
+
+    public function toHtml(string $mjml, array $options = []): string
+    {
+        return $this->callMjml($mjml, $options)->html();
+    }
+
+    protected function callMjml(string $mjml, array $options = []): MjmlResult
     {
         $arguments = [
             $mjml,
-            [
-                'name' => 'value',
-            ],
-        ];
-
-        $command = [
-            (new ExecutableFinder())->find('node', 'node', [
-                '/usr/local/bin',
-                '/opt/homebrew/bin',
-            ]),
-            'mjml.mjs',
-            json_encode(array_values($arguments)),
+            $this->configOptions($options)
         ];
 
         $process = new Process(
-            $command,
-            $this->getWorkingDirectory(),
+            $this->getCommand($arguments),
+            $this->workingDirectory,
             null,
         );
 
@@ -50,8 +107,29 @@ class Mjml
         return new MjmlResult($resultProperties);
     }
 
-    public function getWorkingDirectory()
+    protected function getCommand(array $arguments): array
     {
-        return realpath(dirname(__DIR__).'/bin');
+        return [
+            (new ExecutableFinder())->find('node', 'node', [
+                '/usr/local/bin',
+                '/opt/homebrew/bin',
+            ]),
+            'mjml.mjs',
+            json_encode(array_values($arguments)),
+        ];
+    }
+
+    protected function configOptions(array $overrides): array
+    {
+        $defaults = [
+            'keepComments' => $this->keepComments,
+            'ignoreIncludes' => $this->ignoreIncludes,
+            'beautify' => $this->beautify,
+            'minify' => $this->minify,
+            'validationLevel' => $this->validationLevel->value,
+            'filePath' => $this->filePath,
+        ];
+
+        return array_merge($defaults, $overrides);
     }
 }
