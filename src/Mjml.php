@@ -111,7 +111,7 @@ class Mjml
 
         $resultProperties = json_decode($resultString, true);
 
-        if (array_key_exists('mjmlError', $resultProperties, )) {
+        if (array_key_exists('mjmlError', $resultProperties)) {
             throw CouldNotConvertMjml::make($resultProperties['mjmlError']);
         }
 
