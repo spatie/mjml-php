@@ -4,7 +4,7 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/spatie/mjml-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/spatie/mjml-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/mjml-php.svg?style=flat-square)](https://packagist.org/packages/spatie/mjml-php)
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
+[MJML](https://mjml.io) is a markup language designed to reduce the pain of coding a responsive email. This package can convert MJML to HTML.
 
 ## Support us
 
@@ -16,18 +16,11 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 ## Installation
 
-You can install the package via composer:
-
-```bash
-composer require spatie/mjml-php
-```
+Coming soon.
 
 ## Usage
 
-```php
-$skeleton = new Spatie\Mjml();
-echo $skeleton->echoPhrase('Hello, Spatie!');
-```
+Coming soon.
 
 ## Testing
 

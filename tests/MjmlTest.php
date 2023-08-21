@@ -54,3 +54,4 @@ it('can hide comments by default', function () {
 
     expect($html)->not->toContain('<!-- my comment -->');
 });
+
