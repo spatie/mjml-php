@@ -43,13 +43,13 @@ it('can hide comments by default', function () {
     expect($html)->not->toContain('<!-- my comment -->');
 });
 
-it('can beautify the rendered html', function() {
+it('can beautify the rendered html', function () {
     $html = Mjml::new()->beautify()->toHtml(mjmlSnippet());
 
     expect($html)->toMatchSnapshot();
 });
 
-it('can minify the rendered html', function() {
+it('can minify the rendered html', function () {
     $html = Mjml::new()->minify()->toHtml(mjmlSnippet());
 
     expect($html)->toMatchSnapshot();
@@ -69,4 +69,3 @@ function mjmlSnippet(): string
         </mjml>
         MJML;
 }
-
