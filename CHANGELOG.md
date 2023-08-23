@@ -2,6 +2,12 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 0.0.5 - 2023-08-23
+
+- Adds sidecar function
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/0.0.4...0.0.5
+
 ## 0.0.4 - 2023-08-23
 
 ### What's Changed
