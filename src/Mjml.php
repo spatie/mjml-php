@@ -2,7 +2,6 @@
 
 namespace Spatie\Mjml;
 
-use Illuminate\Support\Str;
 use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
@@ -38,8 +37,7 @@ class Mjml
 
     public static function isMjml(string $content): bool
     {
-        return Str::startsWith($content, '<mjml>') &&
-            Str::endsWith($content, '</mjml>');
+        return (new self)->convert($content)->hasErrors();
     }
 
     public function keepComments(bool $keepComments = true): self
