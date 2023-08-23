@@ -69,19 +69,7 @@ it('can return a direct result from mjml', function () {
 });
 
 it('can return a direct result from mjml with errors', function () {
-    $mjml = <<<'MJML'
-        <mjml>
-          <mj-body>
-            <mj-section>
-              <mj-column>
-                <mj-text invalid-attribute>Hello World</mj-text>
-              </mj-column>
-            </mj-section>
-          </mj-body>
-        </mjml>
-        MJML;
-
-    $result = Mjml::new()->convert($mjml);
+    $result = Mjml::new()->convert(mjmlSnippetWithError());
 
     expect($result)->hasErrors()->toBeTrue();
 
@@ -92,7 +80,7 @@ it('can return a direct result from mjml with errors', function () {
         ->tagName()->toBe('mj-text');
 });
 
-it('can verify if a string contains valid mjml', function (string $data, bool $expectedResult) {
+it('can determine if the given mjml can be rendered to html', function (string $data, bool $expectedResult) {
     expect(Mjml::new()->isValidMjml($data))->toBe($expectedResult);
 })->with([
     [mjmlSnippet(), true],
@@ -100,6 +88,17 @@ it('can verify if a string contains valid mjml', function (string $data, bool $e
     ['<html></html>', false],
     ['</mjml><mjml>', false],
     ['<html><mjml></mjml></html>', false],
+]);
+
+it('can determine if the given mjml can be rendered to html without any errors', function (
+    string $data,
+    bool $strictModeEnabled,
+    bool $expectedResult,
+) {
+    expect(Mjml::new()->isValidMjml($data, strict: $strictModeEnabled))->toBe($expectedResult);
+})->with([
+    [mjmlSnippetWithError(), true, false],
+    [mjmlSnippetWithError(), false, true],
 ]);
 
 function mjmlSnippet(): string
@@ -110,6 +109,21 @@ function mjmlSnippet(): string
             <mj-section>
               <mj-column>
                 <mj-text>Hello World</mj-text>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+        MJML;
+}
+
+function mjmlSnippetWithError(): string
+{
+    return <<<'MJML'
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text invalid-attribute>Hello World</mj-text>
               </mj-column>
             </mj-section>
           </mj-body>

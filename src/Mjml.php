@@ -47,7 +47,7 @@ class Mjml
             return true;
         }
 
-        return $result->hasErrors();
+        return ! $result->hasErrors();
     }
 
     public function keepComments(bool $keepComments = true): self
