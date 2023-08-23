@@ -72,7 +72,7 @@ $html = Mjml::new()->toHtml($mjml);
 
 If the MJML could not be converted at all aa `Spatie\Mjml\Exceptions\CouldNotRenderMjml` exception will be thrown.
 
-### `convert`
+### Using `convert`
 
 The `toHtml` method will just return the converted HTML. There's also a `convert` method that will return an instance of `Spatie\Mjml\RendererResult` that contains the converted HTML and some metadata.
 
@@ -124,11 +124,11 @@ use Spatie\Mjml\Mjml;
 // let's assume $mjml contains the MJML you want to convert
 $minifiedHtml = Mjml::new()->minify()->toHtml($mjml, [
     'beautify' => true,
-    'minify' => 'true',
+    'minify' => true,
 ]);
 ```
 
-### Validation
+### Validating MJML
 
 You can make sure a piece of MJML is valid by using the `isValidMjml()` method.
 
