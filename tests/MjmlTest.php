@@ -56,7 +56,7 @@ it('can minify the rendered html', function () {
     expect($html)->toMatchSnapshot();
 });
 
-it('can return a direct result from mjml', function() {
+it('can return a direct result from mjml', function () {
     $result = Mjml::new()->minify()->convert(mjmlSnippet());
 
     expect($result)
