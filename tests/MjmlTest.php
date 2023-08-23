@@ -97,9 +97,9 @@ it('can verify if a string contains valid mjml', function (string $data, bool $e
 })->with([
     [mjmlSnippet(), true],
     ['<mjml><mj-body></mj-body></mjml>', true],
-    ['<html></html>',false],
-    ['</mjml><mjml>',false],
-    ['<html><mjml></mjml></html>',false],
+    ['<html></html>', false],
+    ['</mjml><mjml>', false],
+    ['<html><mjml></mjml></html>', false],
 ]);
 
 function mjmlSnippet(): string
