@@ -60,7 +60,73 @@ Make sure you have installed Node 16 or higher.
 
 ## Usage
 
-Coming soon.
+The easiest way to convert MJML to HTML is by using the `toHtml` method.
+
+```php
+use Spatie\Mjml\Mjml;
+
+// let's assume $mjml contains the MJML you want to convert
+
+$html = Mjml::new()->toHtml($mjml);
+```
+
+If the MJML could not be converted at all aa `Spatie\Mjml\Exceptions\CouldNotRenderMjml` exception will be thrown.
+
+### `convert`
+
+The `toHtml` method will just return the converted HTML. There's also a `convert` method that will return an instance of `Spatie\Mjml\RendererResult` that contains the converted HTML and some metadata.
+
+```php
+use Spatie\Mjml\Mjml;
+
+// let's assume $mjml contains the MJML you want to convert
+
+$result = Mjml::new()->convert($mjml); // returns an instance of Spatie\Mjml\MjmlResult
+```
+
+On the returned instance of `Spatie\Mjml\MjmlResult` you can call the following methods:
+
+- `html()`: returns the converted HTML
+- `array()`: returns a structured version of the given MJML
+- `hasErrors()`: returns a boolean indicating if there were errors while converting the MJML
+- `errors()`: returns an array of errors that occurred while converting the MJML
+
+The `errors()` method returns an array containing instances of `Spatie\Mjml\MjmlError`. Each `Spatie\Mjml\MjmlError` has the following methods:
+
+- `line()`: returns the line number where the error occurred
+- `message()`: returns the error message
+- `formattedMessage()`: returns the error message with the line number prepended
+- `tagName()`: returns the name of the tag where the error occurred
+
+### Customizing the rendering
+
+There are various methods you can call on the `Mjml` class to customize the rendering. For instance the `minify()` method will minify the HTML that is returned.
+
+```php
+use Spatie\Mjml\Mjml;
+
+// let's assume $mjml contains the MJML you want to convert
+$minifiedHtml = Mjml::new()->minify()->toHtml($mjml);
+```
+
+These are all the methods you can call on the `Mjml` class:
+
+- `minify()`: minify the HTML that is returned
+- `beautify()`: beautify the HTML that is returned
+- `hideComments()`: hide comments in the HTML that is returned
+- `validationLevel(ValidationLevel $validationLevel)`: set the validation level to `strict`, `soft` or `skip`
+
+Instead of using these dedicated methods, you could opt to pass an array with options as the second argument of the `toHtml` or  `convert` method. You can use any of the options that are mentioned in the [MJML documentation](https://github.com/mjmlio/mjml#inside-nodejs).
+
+```php
+use Spatie\Mjml\Mjml;
+
+// let's assume $mjml contains the MJML you want to convert
+$minifiedHtml = Mjml::new()->minify()->toHtml($mjml, [
+    'beautify' => true,
+    'minify' => 'true',
+]);
+```
 
 ## Testing
 
