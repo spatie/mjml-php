@@ -95,6 +95,12 @@ it('can determine if the given mjml can be converted to html without any errors'
     expect(Mjml::new()->canConvertWithoutErrors(mjmlSnippetWithError()))->toBeFalse();
 });
 
+it('requires the sidecar package when called with sidecar', function () {
+    $this->expectException(CouldNotConvertMjml::class);
+
+    Mjml::new()->sidecar()->toHtml(mjmlSnippet());
+});
+
 function mjmlSnippet(): string
 {
     return <<<'MJML'

@@ -23,6 +23,8 @@ class Mjml
 
     protected string $workingDirectory;
 
+    protected bool $sidecar = false;
+
     public static function new(): self
     {
         return new static();
@@ -64,6 +66,13 @@ class Mjml
     public function minify(bool $minify = true): self
     {
         $this->minify = $minify;
+
+        return $this;
+    }
+
+    public function sidecar(bool $sidecar = true): self
+    {
+        $this->sidecar = $sidecar;
 
         return $this;
     }
@@ -123,18 +132,29 @@ class Mjml
             $this->configOptions($options),
         ];
 
-        $process = new Process(
-            $this->getCommand($arguments),
-            $this->workingDirectory,
-        );
+        if ($this->sidecar) {
+            if (! class_exists(\Spatie\MjmlSidecar\MjmlFunction::class)) {
+                throw new CouldNotConvertMjml("You must install the spatie/mjml-sidecar package to convert MJML using Sidecar");
+            }
 
-        $process->run();
+            $resultString = \Spatie\MjmlSidecar\MjmlFunction::execute([
+                'mjml' => $arguments[0],
+                'options' => $arguments[1],
+            ])->body();
+        } else {
+            $process = new Process(
+                $this->getCommand($arguments),
+                $this->workingDirectory,
+            );
 
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+            $process->run();
+
+            if (! $process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+
+            $resultString = $process->getOutput();
         }
-
-        $resultString = $process->getOutput();
 
         $resultProperties = json_decode($resultString, true);
 

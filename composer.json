@@ -23,6 +23,9 @@
         "laravel/pint": "^1.11",
         "spatie/ray": "^1.37.2"
     },
+    "suggest": {
+        "spatie/mjml-sidecar": "When you want to run MJML compilation through Sidecar in a Laravel project"
+    },
     "autoload": {
         "psr-4": {
             "Spatie\\Mjml\\": "src"
