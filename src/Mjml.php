@@ -101,7 +101,7 @@ class Mjml
     public function canConvert(string $mjml): bool
     {
         try {
-            self::new()->convert($mjml);
+            $this->convert($mjml);
         } catch (CouldNotConvertMjml) {
             return false;
         }
@@ -112,7 +112,7 @@ class Mjml
     public function canConvertWithoutErrors(string $mjml): bool
     {
         try {
-            $result = self::new()->convert($mjml);
+            $result = $this->convert($mjml);
         } catch (CouldNotConvertMjml) {
             return false;
         }
