@@ -32,7 +32,7 @@ class Mjml
     {
         $this->validationLevel = ValidationLevel::Soft;
 
-        $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
+        $this->workingDirectory = realpath(dirname(__DIR__) . '/bin');
     }
 
     public function keepComments(bool $keepComments = true): self
@@ -89,22 +89,27 @@ class Mjml
         return $this;
     }
 
-    public function isValidMjml(string $content, bool $strict = false): bool
+    public function canConvert(string $mjml): bool
     {
         try {
-            $result = self::new()->convert($content);
+            self::new()->convert($mjml);
         } catch (CouldNotConvertMjml) {
             return false;
         }
 
-        if (! $strict) {
-            return true;
+        return true;
+    }
+
+    public function canConvertWithoutErrors(string $mjml)
+    {
+        try {
+            $result = self::new()->convert($mjml);
+        } catch (CouldNotConvertMjml) {
+            return false;
         }
 
         return ! $result->hasErrors();
     }
-
-
 
     public function toHtml(string $mjml, array $options = []): string
     {
@@ -125,7 +130,7 @@ class Mjml
 
         $process->run();
 
-        if (! $process->isSuccessful()) {
+        if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 

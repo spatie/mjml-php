@@ -130,22 +130,22 @@ $minifiedHtml = Mjml::new()->minify()->toHtml($mjml, [
 
 ### Validating MJML
 
-You can make sure a piece of MJML is valid by using the `isValidMjml()` method.
+You can make sure a piece of MJML is valid by using the `canConvert()` method.
 
 ```php
 use Spatie\Mjml\Mjml;
 
-Mjml::new()->isValidMjml($mjml); // returns a boolean
+Mjml::new()->canConvert($mjml); // returns a boolean
 ```
 
 If `true` is returned we'll be able to convert the given MJML to HTML. However, there may still be some errors while converting the MJML to HTML. There errors are not fatal and the MJML will still be converted to HTML. You can see these non-fatal errors when calling `errors()` on the `MjmlResult` instance that is returned when calling `convert`.
 
-You can pass a `strict` flag to `isValidMjml` to ensure that the MJML is valid and that there are even no non-fatal errors while converting it to HTML.
+You can use `canConvertWithoutErrors` to make sure the MJML is valid and that there are even no non-fatal errors while converting it to HTML.
 
 ```php
 use Spatie\Mjml\Mjml;
 
-Mjml::new()->isValidMjml($mjml, strict: true); // returns a boolean
+Mjml::new()->canConvertWithoutErrors($mjml); // returns a boolean
 ```
 
 ## Testing

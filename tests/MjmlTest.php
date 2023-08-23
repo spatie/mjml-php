@@ -80,8 +80,8 @@ it('can return a direct result from mjml with errors', function () {
         ->tagName()->toBe('mj-text');
 });
 
-it('can determine if the given mjml can be rendered to html', function (string $mjml, bool $expectedResult) {
-    expect(Mjml::new()->isValidMjml($mjml))->toBe($expectedResult);
+it('can determine if the given mjml can be converted to html', function (string $mjml, bool $expectedResult) {
+    expect(Mjml::new()->canConvert($mjml))->toBe($expectedResult);
 })->with([
     [mjmlSnippet(), true],
     ['<mjml><mj-body></mj-body></mjml>', true],
@@ -90,16 +90,10 @@ it('can determine if the given mjml can be rendered to html', function (string $
     ['<html><mjml></mjml></html>', false],
 ]);
 
-it('can determine if the given mjml can be rendered to html without any errors', function (
-    string $mjml,
-    bool $strictModeEnabled,
-    bool $expectedResult,
-) {
-    expect(Mjml::new()->isValidMjml($mjml, strict: $strictModeEnabled))->toBe($expectedResult);
-})->with([
-    [mjmlSnippetWithError(), true, false],
-    [mjmlSnippetWithError(), false, true],
-]);
+it('can determine if the given mjml can be converted to html without any errors', function () {
+    expect(Mjml::new()->canConvert(mjmlSnippetWithError()))->toBeTrue();
+    expect(Mjml::new()->canConvertWithoutErrors(mjmlSnippetWithError()))->toBeFalse();
+});
 
 function mjmlSnippet(): string
 {
