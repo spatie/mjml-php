@@ -35,6 +35,17 @@ class Mjml
         $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
     }
 
+    public static function isMjml(string $content): bool
+    {
+        try {
+            (new self)->convert($content);
+        } catch (CouldNotConvertMjml) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function keepComments(bool $keepComments = true): self
     {
         $this->keepComments = $keepComments;
