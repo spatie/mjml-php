@@ -93,7 +93,7 @@ it('can return a direct result from mjml with errors', function () {
 });
 
 it('can verify if a string contains valid mjml', function (string $data, bool $expectedResult) {
-    expect(Mjml::isMjml($data))->toBe($expectedResult);
+    expect(Mjml::new()->isValidMjml($data))->toBe($expectedResult);
 })->with([
     [mjmlSnippet(), true],
     ['<mjml><mj-body></mj-body></mjml>', true],

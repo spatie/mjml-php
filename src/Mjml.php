@@ -35,7 +35,7 @@ class Mjml
         $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
     }
 
-    public static function isMjml(string $content): bool
+    public function isValidMjml(string $content): bool
     {
         try {
             (new self)->convert($content);
