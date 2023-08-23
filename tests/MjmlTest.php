@@ -65,7 +65,6 @@ it('can return a direct result from mjml', function() {
         ->array()->toBeArray()
         ->errors()->toHaveCount(0)
         ->hasErrors()->toBeFalse();
-
 });
 
 function mjmlSnippet(): string
