@@ -16,5 +16,4 @@ try {
     process.exit(0);
 }
 
-
 process.stdout.write(JSON.stringify(result));

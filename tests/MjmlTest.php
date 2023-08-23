@@ -14,7 +14,7 @@ it('can render mjml without any options', function () {
 it('can handle invalid mjml', function () {
     $invalidMjml = '<2mjml></2mjml>';
 
-    (new Mjml())->toHtml($invalidMjml);
+    Mjml::new()->toHtml($invalidMjml);
 })->throws(CouldNotConvertMjml::class, 'Parsing failed. Check your mjml');
 
 it('will render comments by default', function () {

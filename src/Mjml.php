@@ -28,7 +28,7 @@ class Mjml
         return new static();
     }
 
-    public function __construct()
+    protected function __construct()
     {
         $this->validationLevel = ValidationLevel::Soft;
 
@@ -100,7 +100,7 @@ class Mjml
         return true;
     }
 
-    public function canConvertWithoutErrors(string $mjml)
+    public function canConvertWithoutErrors(string $mjml): bool
     {
         try {
             $result = self::new()->convert($mjml);
