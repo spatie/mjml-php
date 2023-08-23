@@ -6,6 +6,28 @@
 
 [MJML](https://mjml.io) is a markup language designed to reduce the pain of coding a responsive email. This package can convert MJML to HTML.
 
+Here's an example of how to use it:
+
+```php
+use Spatie\Mjml\Mjml;
+
+$mjml = <<<'MJML'
+    <mjml>
+      <mj-body>
+        <mj-section>
+          <mj-column>
+            <mj-text invalid-attribute>Hello World</mj-text>
+          </mj-column>
+        </mj-section>
+      </mj-body>
+    </mjml>
+    MJML;
+
+$html = Mjml::new()->toHtml($mjml);
+```
+
+The returned HTML will look like the HTML in [this snapshot file](https://github.com/spatie/mjml-php/blob/e37de853d9f89840194cf9c3302a21aae04d012b/tests/.pest/snapshots/MjmlTest/it_can_render_mjml_without_any_options.snap) (it's a bit too large to inline in this readme). Most email clients will be able to render this HTML perfectly.
+
 ## Support us
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/mjml-php.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/mjml-php)
@@ -16,7 +38,25 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 ## Installation
 
-Coming soon.
+You can install the package via composer:
+
+```bash
+composer require spatie/mjml-php
+```
+
+In your project, you must have the JavaScript package [`mjml`](https://github.com/mjmlio/mjml) installed.
+
+```bash
+npm install mjml
+```
+
+... or Yarn.
+
+```bash
+yarn add mjml
+```
+
+Make sure you have installed Node 16 or higher.
 
 ## Usage
 
