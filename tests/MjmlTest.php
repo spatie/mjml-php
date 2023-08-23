@@ -4,19 +4,7 @@ use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Spatie\Mjml\Mjml;
 
 it('can render mjml without any options', function () {
-    $mjml = <<<'MJML'
-        <mjml>
-          <mj-body width="500">
-            <mj-section background-color="#EFEFEF">
-              <mj-column>
-                <mj-text font-size="20px">Hello World</mj-text>
-              </mj-column>
-            </mj-section>
-          </mj-body>
-        </mjml>
-        MJML;
-
-    $html = Mjml::new()->toHtml($mjml);
+    $html = Mjml::new()->toHtml(mjmlSnippet());
 
     expect($html)->toMatchSnapshot();
 });
@@ -54,4 +42,31 @@ it('can hide comments by default', function () {
 
     expect($html)->not->toContain('<!-- my comment -->');
 });
+
+it('can beautify the rendered html', function() {
+    $html = Mjml::new()->beautify()->toHtml(mjmlSnippet());
+
+    expect($html)->toMatchSnapshot();
+});
+
+it('can minify the rendered html', function() {
+    $html = Mjml::new()->minify()->toHtml(mjmlSnippet());
+
+    expect($html)->toMatchSnapshot();
+});
+
+function mjmlSnippet(): string
+{
+    return <<<'MJML'
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text>Hello World</mj-text>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+        MJML;
+}
 
