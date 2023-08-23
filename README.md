@@ -4,9 +4,9 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/spatie/mjml-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/spatie/mjml-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/mjml-php.svg?style=flat-square)](https://packagist.org/packages/spatie/mjml-php)
 
-[MJML](https://mjml.io) is a markup language designed to reduce the pain of coding a responsive email. This package can convert MJML to HTML.
+[MJML](https://mjml.io) is a markup language designed to reduce the pain of coding a responsive email. Our `mjml-php` package can convert MJML to HTML.
 
-Here's an example of how to use it:
+Here's an example of how to use our package:
 
 ```php
 use Spatie\Mjml\Mjml;
