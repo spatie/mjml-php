@@ -26,7 +26,7 @@ $mjml = <<<'MJML'
 $html = Mjml::new()->toHtml($mjml);
 ```
 
-The returned HTML will look like the HTML in [this snapshot file](https://github.com/spatie/mjml-php/blob/e37de853d9f89840194cf9c3302a21aae04d012b/tests/.pest/snapshots/MjmlTest/it_can_render_mjml_without_any_options.snap) (it's a bit too large to inline in this readme). Most email clients will be able to render this HTML perfectly.
+The returned HTML will look like the HTML in [this snapshot file](https://github.com/spatie/mjml-php/blob/main/tests/.pest/snapshots/MjmlTest/it_can_render_mjml_without_any_options.snap) (it's a bit too large to inline in this readme). Most email clients will be able to render this HTML perfectly.
 
 ## Support us
 
@@ -44,7 +44,7 @@ You can install the package via composer:
 composer require spatie/mjml-php
 ```
 
-In your project, you must have the JavaScript package [`mjml`](https://github.com/mjmlio/mjml) installed.
+In your project, or on your server, you must have the JavaScript package [`mjml`](https://github.com/mjmlio/mjml) installed.
 
 ```bash
 npm install mjml
@@ -60,7 +60,7 @@ Make sure you have installed Node 16 or higher.
 
 ## Usage
 
-The easiest way to convert MJML to HTML is by using the `toHtml` method.
+The easiest way to convert MJML to HTML is by using the `toHtml()` method.
 
 ```php
 use Spatie\Mjml\Mjml;
@@ -70,11 +70,11 @@ use Spatie\Mjml\Mjml;
 $html = Mjml::new()->toHtml($mjml);
 ```
 
-If the MJML could not be converted at all aa `Spatie\Mjml\Exceptions\CouldNotRenderMjml` exception will be thrown.
+If the MJML could not be converted at all a `Spatie\Mjml\Exceptions\CouldNotRenderMjml` exception will be thrown.
 
-### Using `convert`
+### Using `convert()`
 
-The `toHtml` method will just return the converted HTML. There's also a `convert` method that will return an instance of `Spatie\Mjml\RendererResult` that contains the converted HTML and some metadata.
+The `toHtml()` method will just return the converted HTML. There's also a `convert()` method that will return an instance of `Spatie\Mjml\MjmlResult` that contains the converted HTML and some metadata.
 
 ```php
 use Spatie\Mjml\Mjml;
@@ -116,7 +116,7 @@ These are all the methods you can call on the `Mjml` class:
 - `hideComments()`: hide comments in the HTML that is returned
 - `validationLevel(ValidationLevel $validationLevel)`: set the validation level to `strict`, `soft` or `skip`
 
-Instead of using these dedicated methods, you could opt to pass an array with options as the second argument of the `toHtml` or  `convert` method. You can use any of the options that are mentioned in the [MJML documentation](https://github.com/mjmlio/mjml#inside-nodejs).
+Instead of using these dedicated methods, you could opt to pass an array with options as the second argument of the `toHtml` or  `convert` method. You can use any of the options that are mentioned in the [MJML documentation for Node.js](https://github.com/mjmlio/mjml#inside-nodejs).
 
 ```php
 use Spatie\Mjml\Mjml;
@@ -138,9 +138,9 @@ use Spatie\Mjml\Mjml;
 Mjml::new()->canConvert($mjml); // returns a boolean
 ```
 
-If `true` is returned we'll be able to convert the given MJML to HTML. However, there may still be some errors while converting the MJML to HTML. There errors are not fatal and the MJML will still be converted to HTML. You can see these non-fatal errors when calling `errors()` on the `MjmlResult` instance that is returned when calling `convert`.
+If `true` is returned we'll be able to convert the given MJML to HTML. However, there may still be some errors while converting the MJML to HTML. These errors are not fatal and the MJML will still be converted to HTML. You can see these non-fatal errors when calling `errors()` on the `MjmlResult` instance that is returned when calling `convert`.
 
-You can use `canConvertWithoutErrors` to make sure the MJML is valid and that there are even no non-fatal errors while converting it to HTML.
+You can use `canConvertWithoutErrors` to make sure the MJML is both valid and that there are no non-fatal errors while converting it to HTML.
 
 ```php
 use Spatie\Mjml\Mjml;
