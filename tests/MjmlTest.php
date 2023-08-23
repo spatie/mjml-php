@@ -59,13 +59,12 @@ it('can minify the rendered html', function () {
 it('can return a direct result from mjml', function() {
     $result = Mjml::new()->minify()->convert(mjmlSnippet());
 
-    expect($result)->toBeInstanceOf(MjmlResult::class);
-
     expect($result)
+        ->toBeInstanceOf(MjmlResult::class)
         ->html()->toBeString()
         ->array()->toBeArray()
-        ->hasErrors()->toBeFalse()
-        ->errors()->toHaveCount(0);
+        ->errors()->toHaveCount(0)
+        ->hasErrors()->toBeFalse();
 
 });
 
