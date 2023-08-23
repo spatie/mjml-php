@@ -32,7 +32,7 @@ class Mjml
     {
         $this->validationLevel = ValidationLevel::Soft;
 
-        $this->workingDirectory = realpath(dirname(__DIR__) . '/bin');
+        $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
     }
 
     public function keepComments(bool $keepComments = true): self
@@ -130,7 +130,7 @@ class Mjml
 
         $process->run();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
