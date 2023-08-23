@@ -37,7 +37,13 @@ class Mjml
 
     public static function isMjml(string $content): bool
     {
-        return (new self)->convert($content)->hasErrors();
+        try {
+            (new self)->convert($content);
+        } catch (CouldNotConvertMjml) {
+            return false;
+        }
+
+        return true;
     }
 
     public function keepComments(bool $keepComments = true): self
