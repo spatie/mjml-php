@@ -24,9 +24,12 @@ class MjmlResult
         return $this->rawResult;
     }
 
+    /** @return array<MjmlError> */
     public function errors(): array
     {
-        return $this->rawResult['errors'] ?? [];
+        return array_map(function (array $errorProperties) {
+            return new MjmlError($errorProperties);
+        }, $this->rawResult['errors'] ?? []);
     }
 
     public function hasErrors(): bool

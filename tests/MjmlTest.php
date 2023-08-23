@@ -2,6 +2,7 @@
 
 use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Spatie\Mjml\Mjml;
+use Spatie\Mjml\MjmlError;
 use Spatie\Mjml\MjmlResult;
 
 it('can render mjml without any options', function () {
@@ -85,9 +86,10 @@ it('can return a direct result from mjml with errors', function() {
     expect($result)->hasErrors()->toBeTrue();
 
     expect($result->errors()[0])
-        ->line->toBe(5)
-        ->message->toBe('Attribute invalid-attribute is illegal')
-        ->tagName->toBe('mj-text');
+        ->toBeInstanceOf(MjmlError::class)
+        ->line()->toBe(5)
+        ->message()->toBe('Attribute invalid-attribute is illegal')
+        ->tagName()->toBe('mj-text');
 });
 
 function mjmlSnippet(): string
