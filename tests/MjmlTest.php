@@ -67,7 +67,7 @@ it('can return a direct result from mjml', function () {
         ->hasErrors()->toBeFalse();
 });
 
-it('can return a direct result from mjml with errors', function() {
+it('can return a direct result from mjml with errors', function () {
     $mjml = <<<'MJML'
         <mjml>
           <mj-body>
