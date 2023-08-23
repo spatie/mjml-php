@@ -67,6 +67,29 @@ it('can return a direct result from mjml', function() {
         ->hasErrors()->toBeFalse();
 });
 
+it('can return a direct result from mjml with errors', function() {
+    $mjml = <<<'MJML'
+        <mjml>
+          <mj-body>
+            <mj-section>
+              <mj-column>
+                <mj-text invalid-attribute>Hello World</mj-text>
+              </mj-column>
+            </mj-section>
+          </mj-body>
+        </mjml>
+        MJML;
+
+    $result = Mjml::new()->convert($mjml);
+
+    expect($result)->hasErrors()->toBeTrue();
+
+    expect($result->errors()[0])
+        ->line->toBe(5)
+        ->message->toBe('Attribute invalid-attribute is illegal')
+        ->tagName->toBe('mj-text');
+});
+
 function mjmlSnippet(): string
 {
     return <<<'MJML'
