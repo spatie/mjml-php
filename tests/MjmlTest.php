@@ -80,8 +80,8 @@ it('can return a direct result from mjml with errors', function () {
         ->tagName()->toBe('mj-text');
 });
 
-it('can determine if the given mjml can be rendered to html', function (string $data, bool $expectedResult) {
-    expect(Mjml::new()->isValidMjml($data))->toBe($expectedResult);
+it('can determine if the given mjml can be rendered to html', function (string $mjml, bool $expectedResult) {
+    expect(Mjml::new()->isValidMjml($mjml))->toBe($expectedResult);
 })->with([
     [mjmlSnippet(), true],
     ['<mjml><mj-body></mj-body></mjml>', true],
@@ -91,11 +91,11 @@ it('can determine if the given mjml can be rendered to html', function (string $
 ]);
 
 it('can determine if the given mjml can be rendered to html without any errors', function (
-    string $data,
+    string $mjml,
     bool $strictModeEnabled,
     bool $expectedResult,
 ) {
-    expect(Mjml::new()->isValidMjml($data, strict: $strictModeEnabled))->toBe($expectedResult);
+    expect(Mjml::new()->isValidMjml($mjml, strict: $strictModeEnabled))->toBe($expectedResult);
 })->with([
     [mjmlSnippetWithError(), true, false],
     [mjmlSnippetWithError(), false, true],
