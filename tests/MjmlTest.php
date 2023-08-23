@@ -93,7 +93,9 @@ it('can return a direct result from mjml with errors', function () {
 it('can verify if a string contains mjml tags', function () {
     expect(Mjml::isMjml(mjmlSnippet()))->toBeTrue()
         ->and(Mjml::isMjml('<mjml></mjml>'))->toBeTrue()
-        ->and(Mjml::isMjml('<html></html>'))->toBeFalse();
+        ->and(Mjml::isMjml('<html></html>'))->toBeFalse()
+        ->and(Mjml::isMjml('</mjml><mjml>'))->toBeFalse()
+        ->and(Mjml::isMjml('<html><mjml></mjml></html>'))->toBeFalse();
 });
 
 function mjmlSnippet(): string

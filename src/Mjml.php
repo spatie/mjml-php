@@ -6,6 +6,7 @@ use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Str;
 
 class Mjml
 {
@@ -35,9 +36,10 @@ class Mjml
         $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
     }
 
-    public static function isMjml(string $mjml): bool
+    public static function isMjml(string $content): bool
     {
-        return str_contains($mjml, '<mjml>') && str_contains($mjml, '</mjml>');
+        return Str::startsWith($content, '<mjml>') &&
+            Str::endsWith($content, '</mjml>');
     }
 
     public function keepComments(bool $keepComments = true): self
