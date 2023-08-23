@@ -2,11 +2,11 @@
 
 namespace Spatie\Mjml;
 
+use Illuminate\Support\Str;
 use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
-use Illuminate\Support\Str;
 
 class Mjml
 {
