@@ -92,19 +92,14 @@ it('can return a direct result from mjml with errors', function () {
         ->tagName()->toBe('mj-text');
 });
 
-it('can verify if a string contains valid mjml', function (string $data) {
-    expect(Mjml::isMjml($data))->toBeTrue();
+it('can verify if a string contains valid mjml', function (string $data, bool $expectedResult) {
+    expect(Mjml::isMjml($data))->toBe($expectedResult);
 })->with([
-    mjmlSnippet(),
-    '<mjml><mj-body></mj-body></mjml>',
-]);
-
-it('can verify if a string does not contains valid mjml', function (string $data) {
-    expect(Mjml::isMjml($data))->toBeFalse();
-})->with([
-    '<html></html>',
-    '</mjml><mjml>',
-    '<html><mjml></mjml></html>',
+    [mjmlSnippet(), true],
+    ['<mjml><mj-body></mj-body></mjml>', true],
+    ['<html></html>',false],
+    ['</mjml><mjml>',false],
+    ['<html><mjml></mjml></html>',false],
 ]);
 
 function mjmlSnippet(): string
