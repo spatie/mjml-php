@@ -1,0 +1,6 @@
+{
+    "type": "module",
+    "dependencies": {
+        "mjml": "^4.14.1"
+    }
+}

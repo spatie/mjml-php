@@ -148,6 +148,31 @@ use Spatie\Mjml\Mjml;
 Mjml::new()->canConvertWithoutErrors($mjml); // returns a boolean
 ```
 
+## Sidecar
+
+This package also supports running through [Sidecar](https://github.com/hammerstonedev/sidecar) in Laravel projects.
+
+To use the `->sidecar()` method, a few extra steps are needed:
+
+Register the `MjmlFunction` in your `sidecar.php` config file.
+
+```php
+/*
+ * All of your function classes that you'd like to deploy go here.
+ */
+'functions' => [
+    \Spatie\Mjml\Functions\MjmlFunction::class,
+],
+```
+
+Deploy the Lambda function by running:
+
+```shell
+php artisan sidecar:deploy --activate
+```
+
+See the [Sidecar documentation](https://hammerstone.dev/sidecar/docs/main/functions/deploying) for details.
+
 ## Testing
 
 ```bash

@@ -3,6 +3,7 @@
 namespace Spatie\Mjml;
 
 use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
+use Spatie\Mjml\Functions\MjmlFunction;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -22,6 +23,8 @@ class Mjml
     protected string $filePath = '.';
 
     protected string $workingDirectory;
+
+    protected bool $sidecar = false;
 
     public static function new(): self
     {
@@ -64,6 +67,13 @@ class Mjml
     public function minify(bool $minify = true): self
     {
         $this->minify = $minify;
+
+        return $this;
+    }
+
+    public function sidecar(bool $sidecar = true): self
+    {
+        $this->sidecar = true;
 
         return $this;
     }
@@ -123,18 +133,25 @@ class Mjml
             $this->configOptions($options),
         ];
 
-        $process = new Process(
-            $this->getCommand($arguments),
-            $this->workingDirectory,
-        );
+        if ($this->sidecar) {
+            $resultString = MjmlFunction::execute([
+                'mjml' => $arguments[0],
+                'options' => $arguments[1],
+            ])->body();
+        } else {
+            $process = new Process(
+                $this->getCommand($arguments),
+                $this->workingDirectory,
+            );
 
-        $process->run();
+            $process->run();
 
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+            if (! $process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+
+            $resultString = $process->getOutput();
         }
-
-        $resultString = $process->getOutput();
 
         $resultProperties = json_decode($resultString, true);
 
