@@ -104,8 +104,6 @@ class Mjml
         return ! $result->hasErrors();
     }
 
-
-
     public function toHtml(string $mjml, array $options = []): string
     {
         return $this->convert($mjml, $options)->html();
