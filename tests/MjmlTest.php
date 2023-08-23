@@ -94,7 +94,7 @@ it('can verify if a string contains valid mjml', function (string $data) {
     expect(Mjml::isMjml($data))->toBeTrue();
 })->with([
     mjmlSnippet(),
-    '<mjml></mjml>',
+    '<mjml><mj-body></mj-body></mjml>',
 ]);
 
 it('can verify if a string does not contains valid mjml', function (string $data) {
