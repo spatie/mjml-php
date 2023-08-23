@@ -89,9 +89,14 @@ class Mjml
         return $this;
     }
 
+    public function convert(string $mjml, array $options = []): MjmlResult
+    {
+        return $this->callMjml($mjml, $options);
+    }
+
     public function toHtml(string $mjml, array $options = []): string
     {
-        return $this->callMjml($mjml, $options)->html();
+        return $this->convert($mjml, $options)->html();
     }
 
     protected function callMjml(string $mjml, array $options = []): MjmlResult

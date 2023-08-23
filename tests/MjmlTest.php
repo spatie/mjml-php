@@ -2,6 +2,7 @@
 
 use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Spatie\Mjml\Mjml;
+use Spatie\Mjml\MjmlResult;
 
 it('can render mjml without any options', function () {
     $html = Mjml::new()->toHtml(mjmlSnippet());
@@ -53,6 +54,19 @@ it('can minify the rendered html', function() {
     $html = Mjml::new()->minify()->toHtml(mjmlSnippet());
 
     expect($html)->toMatchSnapshot();
+});
+
+it('can return a direct result from mjml', function() {
+    $result = Mjml::new()->minify()->convert(mjmlSnippet());
+
+    expect($result)->toBeInstanceOf(MjmlResult::class);
+
+    expect($result)
+        ->html()->toBeString()
+        ->array()->toBeArray()
+        ->hasErrors()->toBeFalse()
+        ->errors()->toHaveCount(0);
+
 });
 
 function mjmlSnippet(): string
