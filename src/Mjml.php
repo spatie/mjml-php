@@ -38,7 +38,7 @@ class Mjml
     public function isValidMjml(string $content): bool
     {
         try {
-            (new self)->convert($content);
+            self::new()->convert($content);
         } catch (CouldNotConvertMjml) {
             return false;
         }

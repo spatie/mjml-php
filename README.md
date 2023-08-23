@@ -145,7 +145,7 @@ You can pass a `strict` flag to `isValidMjml` to ensure that the MJML is valid a
 ```php
 use Spatie\Mjml\Mjml;
 
-Mjml::new()->isValidMjml(strict: true); // returns a boolean
+Mjml::new()->isValidMjml($mjml, strict: true); // returns a boolean
 ```
 
 ## Testing
