@@ -134,7 +134,7 @@ class Mjml
 
         if ($this->sidecar) {
             if (! class_exists(\Spatie\MjmlSidecar\MjmlFunction::class)) {
-                throw new CouldNotConvertMjml("You must install the spatie/mjml-sidecar package to convert MJML using Sidecar");
+                throw new CouldNotConvertMjml('You must install the spatie/mjml-sidecar package to convert MJML using Sidecar');
             }
 
             $resultString = \Spatie\MjmlSidecar\MjmlFunction::execute([
