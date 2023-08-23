@@ -35,21 +35,6 @@ class Mjml
         $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
     }
 
-    public function isValidMjml(string $content, bool $strict = false): bool
-    {
-        try {
-            $result = self::new()->convert($content);
-        } catch (CouldNotConvertMjml) {
-            return false;
-        }
-
-        if (! $strict) {
-            return true;
-        }
-
-        return ! $result->hasErrors();
-    }
-
     public function keepComments(bool $keepComments = true): self
     {
         $this->keepComments = $keepComments;
@@ -102,6 +87,21 @@ class Mjml
         $this->workingDirectory = $workingDirectory;
 
         return $this;
+    }
+
+    public function isValidMjml(string $content, bool $strict = false): bool
+    {
+        try {
+            $result = self::new()->convert($content);
+        } catch (CouldNotConvertMjml) {
+            return false;
+        }
+
+        if (! $strict) {
+            return true;
+        }
+
+        return ! $result->hasErrors();
     }
 
     public function convert(string $mjml, array $options = []): MjmlResult
