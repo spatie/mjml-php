@@ -2,6 +2,10 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.0.0 - 2023-08-25
+
+- stable release
+
 ## 0.0.6 - 2023-08-23
 
 - Fix an issue where settings weren't kept
