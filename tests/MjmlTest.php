@@ -1,6 +1,7 @@
 <?php
 
 use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
+use Spatie\Mjml\Exceptions\SidecarPackageUnavailable;
 use Spatie\Mjml\Mjml;
 use Spatie\Mjml\MjmlError;
 use Spatie\Mjml\MjmlResult;
@@ -96,10 +97,8 @@ it('can determine if the given mjml can be converted to html without any errors'
 });
 
 it('requires the sidecar package when called with sidecar', function () {
-    $this->expectException(CouldNotConvertMjml::class);
-
     Mjml::new()->sidecar()->toHtml(mjmlSnippet());
-});
+})->throws(SidecarPackageUnavailable::class);
 
 function mjmlSnippet(): string
 {
