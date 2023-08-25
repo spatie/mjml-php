@@ -3,6 +3,8 @@
 namespace Spatie\Mjml;
 
 use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
+use Spatie\Mjml\Exceptions\SidecarPackageUnavailable;
+use Spatie\MjmlSidecar\MjmlFunction;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -133,11 +135,11 @@ class Mjml
         ];
 
         if ($this->sidecar) {
-            if (! class_exists(\Spatie\MjmlSidecar\MjmlFunction::class)) {
-                throw new CouldNotConvertMjml('You must install the spatie/mjml-sidecar package to convert MJML using Sidecar');
+            if (! class_exists(MjmlFunction::class)) {
+                throw SidecarPackageUnavailable::make();
             }
 
-            $resultString = \Spatie\MjmlSidecar\MjmlFunction::execute([
+            $resultString = MjmlFunction::execute([
                 'mjml' => $arguments[0],
                 'options' => $arguments[1],
             ])->body();
