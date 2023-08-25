@@ -134,29 +134,9 @@ class Mjml
             $this->configOptions($options),
         ];
 
-        if ($this->sidecar) {
-            if (! class_exists(MjmlFunction::class)) {
-                throw SidecarPackageUnavailable::make();
-            }
-
-            $resultString = MjmlFunction::execute([
-                'mjml' => $arguments[0],
-                'options' => $arguments[1],
-            ])->body();
-        } else {
-            $process = new Process(
-                $this->getCommand($arguments),
-                $this->workingDirectory,
-            );
-
-            $process->run();
-
-            if (! $process->isSuccessful()) {
-                throw new ProcessFailedException($process);
-            }
-
-            $resultString = $process->getOutput();
-        }
+        $resultString = $this->sidecar
+            ? $this->getSideCarResult($arguments)
+            : $this->getLocalResult($arguments);
 
         $resultProperties = json_decode($resultString, true);
 
@@ -191,5 +171,33 @@ class Mjml
         ];
 
         return array_merge($defaults, $overrides);
+    }
+
+    protected function getSideCarResult(array $arguments): string
+    {
+        if (!class_exists(MjmlFunction::class)) {
+            throw SidecarPackageUnavailable::make();
+        }
+
+        return MjmlFunction::execute([
+            'mjml' => $arguments[0],
+            'options' => $arguments[1],
+        ])->body();
+    }
+
+    protected function getLocalResult(array $arguments): string
+    {
+        $process = new Process(
+            $this->getCommand($arguments),
+            $this->workingDirectory,
+        );
+
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        return $process->getOutput();
     }
 }
