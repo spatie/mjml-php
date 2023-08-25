@@ -175,7 +175,7 @@ class Mjml
 
     protected function getSideCarResult(array $arguments): string
     {
-        if (!class_exists(MjmlFunction::class)) {
+        if (! class_exists(MjmlFunction::class)) {
             throw SidecarPackageUnavailable::make();
         }
 
@@ -194,7 +194,7 @@ class Mjml
 
         $process->run();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
