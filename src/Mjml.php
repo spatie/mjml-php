@@ -138,6 +138,9 @@ class Mjml
             ? $this->getSideCarResult($arguments)
             : $this->getLocalResult($arguments);
 
+
+        $resultString = $this->checkForDeprecationWarning($resultString);
+
         $resultProperties = json_decode($resultString, true);
 
         if (array_key_exists('mjmlError', $resultProperties)) {
@@ -145,6 +148,17 @@ class Mjml
         }
 
         return new MjmlResult($resultProperties);
+    }
+
+    protected function checkForDeprecationWarning(string $result): string
+    {
+        $deprecationWarning = 'MJML v3 syntax detected, migrating to MJML v4 syntax. Use mjml -m to get the migrated MJML.';
+
+        if (str_contains($result, $deprecationWarning)) {
+            $result = str_replace($deprecationWarning, '', $result);
+        }
+
+        return $result;
     }
 
     protected function getCommand(array $arguments): array
