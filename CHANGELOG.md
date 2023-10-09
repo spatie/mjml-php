@@ -2,6 +2,19 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.0.1 - 2023-10-09
+
+### What's Changed
+
+- Check for deprecation warning by @Baspa in https://github.com/spatie/mjml-php/pull/6
+- Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/spatie/mjml-php/pull/5
+
+### New Contributors
+
+- @Baspa made their first contribution in https://github.com/spatie/mjml-php/pull/6
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.0.0...1.0.1
+
 ## 1.0.0 - 2023-08-25
 
 - stable release
