@@ -100,6 +100,14 @@ it('requires the sidecar package when called with sidecar', function () {
     Mjml::new()->sidecar()->toHtml(mjmlSnippet());
 })->throws(SidecarPackageUnavailable::class);
 
+it('can determine if the given mjml can be converted when the mjml is deprecated', function (string $mjml, bool $expectedResult) {
+    expect(Mjml::new()->canConvert($mjml))->toBe($expectedResult);
+})->with([
+    ['<mjml><mj-body></mj-body></mjml>', true],
+    ['<mjml><mj-body><mj-container></mj-container></mj-body></mjml>', false], // deprecated mjml
+    ['<mjml><mj-body><mj-wrapper></mj-wrapper></mj-body></mjml>', true],
+]);
+
 function mjmlSnippet(): string
 {
     return <<<'MJML'
