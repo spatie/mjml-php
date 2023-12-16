@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "symfony/process": "^6.3.2"
+        "symfony/process": "^6.3.2|^7.0"
     },
     "require-dev": {
         "pestphp/pest": "^2.16",
