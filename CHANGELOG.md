@@ -2,6 +2,18 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.0.2 - 2023-12-18
+
+### What's Changed
+
+* Allow Symfony 7.x by @thecaliskan in https://github.com/spatie/mjml-php/pull/11
+
+### New Contributors
+
+* @thecaliskan made their first contribution in https://github.com/spatie/mjml-php/pull/11
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.0.1...1.0.2
+
 ## 1.0.1 - 2023-10-09
 
 ### What's Changed
