@@ -2,6 +2,21 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.1.0 - 2024-01-22
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/spatie/mjml-php/pull/12
+* Bump actions/setup-node from 3 to 4 by @dependabot in https://github.com/spatie/mjml-php/pull/8
+* Bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/spatie/mjml-php/pull/7
+* Add support for specifying the path to nodejs executable by @vladyslav-mikhieiev in https://github.com/spatie/mjml-php/pull/16
+
+### New Contributors
+
+* @vladyslav-mikhieiev made their first contribution in https://github.com/spatie/mjml-php/pull/16
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.0.2...1.1.0
+
 ## 1.0.2 - 2023-12-18
 
 ### What's Changed
