@@ -163,11 +163,19 @@ class Mjml
 
     protected function getCommand(array $arguments): array
     {
+        $extraDirectories = [
+            '/usr/local/bin',
+            '/opt/homebrew/bin'
+        ];
+
+        $nodePathFromEnv = getenv('MJML_NODE_PATH');
+
+        if ($nodePathFromEnv) {
+            array_unshift($extraDirectories, $nodePathFromEnv);
+        }
+
         return [
-            (new ExecutableFinder())->find('node', 'node', [
-                '/usr/local/bin',
-                '/opt/homebrew/bin',
-            ]),
+            (new ExecutableFinder())->find('node', 'node', $extraDirectories),
             'mjml.mjs',
             json_encode(array_values($arguments)),
         ];
