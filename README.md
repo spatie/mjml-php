@@ -148,6 +148,14 @@ use Spatie\Mjml\Mjml;
 Mjml::new()->canConvertWithoutErrors($mjml); // returns a boolean
 ```
 
+### Specifying the path to nodejs executable
+
+By default, the package itself will try to determine the path to the `node` executable. If the package can't find a path, you can specify a path in the environment variable `MJML_NODE_PATH` 
+
+```shell
+MJML_NODE_PATH=/home/user/.nvm/versions/node/v20.11.0/bin
+```
+
 ## Sidecar
 
 This package also supports running through [Sidecar](https://github.com/hammerstonedev/sidecar) in Laravel projects.
