@@ -138,7 +138,6 @@ class Mjml
             ? $this->getSideCarResult($arguments)
             : $this->getLocalResult($arguments);
 
-
         $resultString = $this->checkForDeprecationWarning($resultString);
 
         $resultProperties = json_decode($resultString, true);
@@ -165,7 +164,7 @@ class Mjml
     {
         $extraDirectories = [
             '/usr/local/bin',
-            '/opt/homebrew/bin'
+            '/opt/homebrew/bin',
         ];
 
         $nodePathFromEnv = getenv('MJML_NODE_PATH');
