@@ -8,7 +8,7 @@ const options = args[1];
 let result = ''
 
 try {
-    result = mjml2html(mjml, options);
+    result = await mjml2html(mjml, options);
 } catch (exception) {
     const errorString = JSON.stringify({mjmlError: exception.toString()});
 
