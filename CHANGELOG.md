@@ -2,6 +2,18 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.2.0 - 2024-07-09
+
+### What's Changed
+
+* MJML v5.0 Alpha compatibility by @stevebauman in https://github.com/spatie/mjml-php/pull/21
+
+### New Contributors
+
+* @stevebauman made their first contribution in https://github.com/spatie/mjml-php/pull/21
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.1.0...1.2.0
+
 ## 1.1.0 - 2024-01-22
 
 ### What's Changed
