@@ -176,7 +176,7 @@ class Mjml
         return [
             (new ExecutableFinder())->find('node', 'node', $extraDirectories),
             'mjml.mjs',
-            json_encode(array_values($arguments)),
+            base64_encode(json_encode(array_values($arguments))),
         ];
     }
 
@@ -219,6 +219,8 @@ class Mjml
             throw new ProcessFailedException($process);
         }
 
-        return $process->getOutput();
+        $output = last(explode("\n", $process->getOutput()));
+
+        return base64_decode($output);
     }
 }
