@@ -4,9 +4,7 @@ namespace Spatie\Mjml;
 
 class MjmlError
 {
-    public function __construct(protected array $rawError)
-    {
-    }
+    public function __construct(protected array $rawError) {}
 
     public function line(): int
     {
