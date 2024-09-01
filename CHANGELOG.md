@@ -2,6 +2,12 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.2.1 - 2024-09-01
+
+* Use base64 encoding to more reliably send data across
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.2.0...1.2.1
+
 ## 1.2.0 - 2024-07-09
 
 ### What's Changed
