@@ -219,8 +219,8 @@ class Mjml
             throw new ProcessFailedException($process);
         }
 
-        $output = last(explode("\n", $process->getOutput()));
+        $items = explode("\n", $process->getOutput());
 
-        return base64_decode($output);
+        return base64_decode(end($items));
     }
 }
