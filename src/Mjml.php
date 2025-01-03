@@ -6,7 +6,6 @@ use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Spatie\Mjml\Exceptions\SidecarPackageUnavailable;
 use Spatie\MjmlSidecar\MjmlFunction;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
@@ -144,13 +143,13 @@ class Mjml
 
     public function getCommand(TemporaryDirectory $tempDir, string $templatePath, string $outputPath, $arguments): array
     {
-        $executableFinder = new ExecutableFinder();
+        $executableFinder = new ExecutableFinder;
         $mjml = $executableFinder->find('mjml');
 
         if (! $mjml) {
             $tempDir->delete();
 
-            throw CouldNotConvertMjml::make("No MJML binary found. Make sure it is installed on your system.");
+            throw CouldNotConvertMjml::make('No MJML binary found. Make sure it is installed on your system.');
         }
 
         $command = [$mjml, $templatePath, '-o', $outputPath];
@@ -159,6 +158,7 @@ class Mjml
             $command[] = "-c.{$configKey}";
             $command[] = $configValue;
         }
+
         return $command;
     }
 
