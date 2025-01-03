@@ -143,9 +143,12 @@ class Mjml
 
     public function getCommand(string $templatePath, string $outputPath, $arguments): array
     {
+        $home = getenv("HOME");
+
         $extraDirectories = [
             '/usr/local/bin',
             '/opt/homebrew/bin',
+            $home . '/n/bin', // support https://github.com/tj/n
             __DIR__.'/../node_modules/mjml/bin',
         ];
 
