@@ -146,6 +146,7 @@ class Mjml
         $extraDirectories = [
             '/usr/local/bin',
             '/opt/homebrew/bin',
+            __DIR__ .'/../node_modules/mjml/bin'
         ];
 
         $mjmlPathFromEnv = getenv('MJML_PATH');
