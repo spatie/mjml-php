@@ -141,18 +141,25 @@ class Mjml
         return $result;
     }
 
-    public function getCommand(TemporaryDirectory $tempDir, string $templatePath, string $outputPath, $arguments): array
+    public function getCommand(string $templatePath, string $outputPath, $arguments): array
     {
-        $executableFinder = new ExecutableFinder;
-        $mjml = $executableFinder->find('mjml');
+        $extraDirectories = [
+            '/usr/local/bin',
+            '/opt/homebrew/bin',
+        ];
 
-        if (! $mjml) {
-            $tempDir->delete();
+        $mjmlPathFromEnv = getenv('MJML_PATH');
 
-            throw CouldNotConvertMjml::make('No MJML binary found. Make sure it is installed on your system.');
+        if ($mjmlPathFromEnv) {
+            array_unshift($extraDirectories, $mjmlPathFromEnv);
         }
 
-        $command = [$mjml, $templatePath, '-o', $outputPath];
+        $command = [
+            (new ExecutableFinder)->find('mjml', 'mjml', $extraDirectories),
+            $templatePath,
+            '-o',
+            $outputPath,
+        ];
 
         foreach ($arguments as $configKey => $configValue) {
             $command[] = "-c.{$configKey}";
@@ -208,7 +215,7 @@ class Mjml
 
         $outputPath = $tempDir->path("{$filename}.html");
 
-        $command = $this->getCommand($tempDir, $templatePath, $outputPath, $arguments[1]);
+        $command = $this->getCommand($templatePath, $outputPath, $arguments[1]);
 
         $process = new Process($command);
         $process->run();
