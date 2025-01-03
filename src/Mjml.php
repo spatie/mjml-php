@@ -141,7 +141,7 @@ class Mjml
         return $result;
     }
 
-    public function getCommand(string $templatePath, string $outputPath, $arguments): array
+    protected function getCommand(string $templatePath, string $outputPath, $arguments): array
     {
         $home = getenv('HOME');
 
