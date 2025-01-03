@@ -5,6 +5,7 @@ namespace Spatie\Mjml;
 use Spatie\Mjml\Exceptions\CouldNotConvertMjml;
 use Spatie\Mjml\Exceptions\SidecarPackageUnavailable;
 use Spatie\MjmlSidecar\MjmlFunction;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -23,8 +24,6 @@ class Mjml
 
     protected string $filePath = '.';
 
-    protected string $workingDirectory;
-
     protected bool $sidecar = false;
 
     public static function new(): self
@@ -35,8 +34,6 @@ class Mjml
     protected function __construct()
     {
         $this->validationLevel = ValidationLevel::Soft;
-
-        $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
     }
 
     public function keepComments(bool $keepComments = true): self
@@ -93,13 +90,6 @@ class Mjml
         return $this;
     }
 
-    public function workingDirectory(string $workingDirectory): self
-    {
-        $this->workingDirectory = $workingDirectory;
-
-        return $this;
-    }
-
     public function canConvert(string $mjml): bool
     {
         try {
@@ -134,19 +124,11 @@ class Mjml
             $this->configOptions($options),
         ];
 
-        $resultString = $this->sidecar
-            ? $this->getSideCarResult($arguments)
-            : $this->getLocalResult($arguments);
-
-        $resultString = $this->checkForDeprecationWarning($resultString);
-
-        $resultProperties = json_decode($resultString, true);
-
-        if (array_key_exists('mjmlError', $resultProperties)) {
-            throw CouldNotConvertMjml::make($resultProperties['mjmlError']);
+        if ($this->sidecar) {
+            return $this->getSideCarResult($arguments);
         }
 
-        return new MjmlResult($resultProperties);
+        return $this->getLocalResult($arguments);
     }
 
     protected function checkForDeprecationWarning(string $result): string
@@ -160,24 +142,24 @@ class Mjml
         return $result;
     }
 
-    protected function getCommand(array $arguments): array
+    public function getCommand(TemporaryDirectory $tempDir, string $templatePath, string $outputPath, $arguments): array
     {
-        $extraDirectories = [
-            '/usr/local/bin',
-            '/opt/homebrew/bin',
-        ];
+        $executableFinder = new ExecutableFinder();
+        $mjml = $executableFinder->find('mjml');
 
-        $nodePathFromEnv = getenv('MJML_NODE_PATH');
+        if (! $mjml) {
+            $tempDir->delete();
 
-        if ($nodePathFromEnv) {
-            array_unshift($extraDirectories, $nodePathFromEnv);
+            throw CouldNotConvertMjml::make("No MJML binary found. Make sure it is installed on your system.");
         }
 
-        return [
-            (new ExecutableFinder)->find('node', 'node', $extraDirectories),
-            'mjml.mjs',
-            base64_encode(json_encode(array_values($arguments))),
-        ];
+        $command = [$mjml, $templatePath, '-o', $outputPath];
+
+        foreach ($arguments as $configKey => $configValue) {
+            $command[] = "-c.{$configKey}";
+            $command[] = $configValue;
+        }
+        return $command;
     }
 
     protected function configOptions(array $overrides): array
@@ -194,33 +176,75 @@ class Mjml
         return array_merge($defaults, $overrides);
     }
 
-    protected function getSideCarResult(array $arguments): string
+    protected function getSideCarResult(array $arguments): MjmlResult
     {
         if (! class_exists(MjmlFunction::class)) {
             throw SidecarPackageUnavailable::make();
         }
 
-        return MjmlFunction::execute([
+        $result = MjmlFunction::execute([
             'mjml' => $arguments[0],
             'options' => $arguments[1],
         ])->body();
+
+        $result = $this->checkForDeprecationWarning($result);
+
+        $resultProperties = json_decode($result, true);
+
+        if (array_key_exists('mjmlError', $resultProperties)) {
+            throw CouldNotConvertMjml::make($resultProperties['mjmlError']);
+        }
+
+        return new MjmlResult($resultProperties);
     }
 
-    protected function getLocalResult(array $arguments): string
+    protected function getLocalResult(array $arguments): MjmlResult
     {
-        $process = new Process(
-            $this->getCommand($arguments),
-            $this->workingDirectory,
-        );
+        $tempDir = TemporaryDirectory::make();
+        $filename = date('U');
 
+        $templatePath = $tempDir->path("{$filename}.mjml");
+        file_put_contents($templatePath, $arguments[0]);
+
+        $outputPath = $tempDir->path("{$filename}.html");
+
+        $command = $this->getCommand($tempDir, $templatePath, $outputPath, $arguments[1]);
+
+        $process = new Process($command);
         $process->run();
 
         if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+            $output = explode("\n", $process->getErrorOutput());
+            $errors = array_filter($output, fn (string $output) => str_contains($output, 'Error'));
+
+            $tempDir->delete();
+
+            throw CouldNotConvertMjml::make($errors[0] ?? $process->getErrorOutput());
         }
 
-        $items = explode("\n", $process->getOutput());
+        $errors = [];
 
-        return base64_decode(end($items));
+        if ($process->getErrorOutput()) {
+            $errors = array_filter(explode("\n", $process->getErrorOutput()));
+            $errors = array_map(function (string $error) {
+                preg_match('/Line (\d+) of (.+) \((.+)\) — (.+)/u', $error, $matches);
+                [, $line, , $tagName, $message] = $matches;
+
+                return [
+                    'line' => $line,
+                    'message' => $message,
+                    'tagName' => $tagName,
+                ];
+            }, $errors);
+        }
+
+        $html = file_get_contents($outputPath);
+
+        $tempDir->delete();
+
+        return new MjmlResult([
+            'html' => $html,
+            'errors' => $errors,
+        ]);
     }
 }
