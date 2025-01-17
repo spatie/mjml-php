@@ -40,6 +40,7 @@
       display: block;
       margin: 13px 0;
     }
+
   </style>
   <!--[if mso]>
     <noscript>
@@ -60,6 +61,7 @@
   <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
   <style type="text/css">
     @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+
   </style>
   <!--<![endif]-->
   <style type="text/css">
@@ -69,12 +71,14 @@
         max-width: 100%;
       }
     }
+
   </style>
   <style media="screen and (min-width:480px)">
     .moz-text-html .mj-column-per-100 {
       width: 100% !important;
       max-width: 100%;
     }
+
   </style>
 </head>
 
