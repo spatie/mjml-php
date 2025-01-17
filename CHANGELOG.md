@@ -2,6 +2,14 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.2.2 - 2025-01-17
+
+### What's Changed
+
+* Generate using a file with the cli when generating locally by @riasvdv in https://github.com/spatie/mjml-php/pull/26
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.2.1...1.2.2
+
 ## 1.2.1 - 2024-09-01
 
 * Use base64 encoding to more reliably send data across
