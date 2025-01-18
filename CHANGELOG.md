@@ -2,6 +2,12 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.2.3 - 2025-01-18
+
+- Revert "Merge pull request #26 from spatie/feature/generate-using-cli"
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.2.2...1.2.3
+
 ## 1.2.2 - 2025-01-17
 
 ### What's Changed
