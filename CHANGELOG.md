@@ -2,6 +2,20 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.2.4 - 2025-03-17
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/mjml-php/pull/28
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/spatie/mjml-php/pull/30
+* Switch passing mjml via argument to via stdin by @rrehbein in https://github.com/spatie/mjml-php/pull/31
+
+### New Contributors
+
+* @rrehbein made their first contribution in https://github.com/spatie/mjml-php/pull/31
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.2.3...1.2.4
+
 ## 1.2.3 - 2025-01-18
 
 - Revert "Merge pull request #26 from spatie/feature/generate-using-cli"
