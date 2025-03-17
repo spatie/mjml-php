@@ -7,7 +7,7 @@ let mjml = args[0];
 const options = args[1];
 
 if ('-' === mjml) {
-    mjml = atob(await text(process.stdin));
+    mjml = Buffer.from(await text(process.stdin), 'base64').toString('utf8');
 }
 
 let result = ''

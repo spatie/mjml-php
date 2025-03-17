@@ -121,6 +121,14 @@ it('can render large mjml content', function () {
         ->hasErrors()->toBeFalse();
 });
 
+it('can render utf8 mjml content', function () {
+    $content = 'Grüsse 👋';
+    $mjml = '<mjml><mj-body><mj-text>'.$content.'</mj-text></mj-body></mjml>';
+    $html = Mjml::new()->toHtml($mjml);
+
+    expect($html)->toContain($content);
+});
+
 function mjmlSnippet(): string
 {
     return <<<'MJML'
