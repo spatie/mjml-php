@@ -108,6 +108,19 @@ it('can determine if the given mjml can be converted when the mjml is deprecated
     ['<mjml><mj-body><mj-wrapper></mj-wrapper></mj-body></mjml>', true],
 ]);
 
+it('can render large mjml content', function () {
+    $mjml = '<mjml><mj-body>'.
+            implode('', array_pad([], 10_000, '<mj-wrapper>filler</mj-wrapper>'))
+            .'</mj-body></mjml>';
+    $result = Mjml::new()->convert($mjml);
+
+    expect($result)
+        ->toBeInstanceOf(MjmlResult::class)
+        ->html()->toBeString()
+        ->errors()->toHaveCount(0)
+        ->hasErrors()->toBeFalse();
+});
+
 function mjmlSnippet(): string
 {
     return <<<'MJML'

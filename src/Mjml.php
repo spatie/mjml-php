@@ -208,10 +208,14 @@ class Mjml
 
     protected function getLocalResult(array $arguments): string
     {
+        $mjmlTemplate = $arguments[0];
+        $arguments[0] = '-';
+
         $process = new Process(
             $this->getCommand($arguments),
             $this->workingDirectory,
         );
+        $process->setInput(base64_encode($mjmlTemplate));
 
         $process->run();
 
