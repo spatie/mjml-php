@@ -1,9 +1,14 @@
 import mjml2html from 'mjml'
+import { text } from "node:stream/consumers";
 
 const args = JSON.parse(atob(process.argv.slice(2)));
 
-const mjml = args[0];
+let mjml = args[0];
 const options = args[1];
+
+if ('-' === mjml) {
+    mjml = atob(await text(process.stdin));
+}
 
 let result = ''
 
