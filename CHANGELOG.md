@@ -2,6 +2,14 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.2.5 - 2025-03-17
+
+### What's Changed
+
+* Fix base64 decode character type error by @rrehbein in https://github.com/spatie/mjml-php/pull/33
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.2.4...1.2.5
+
 ## 1.2.4 - 2025-03-17
 
 ### What's Changed
