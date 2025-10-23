@@ -29,14 +29,14 @@ class Mjml
 
     public static function new(): self
     {
-        return new static;
+        return new static();
     }
 
     protected function __construct()
     {
         $this->validationLevel = ValidationLevel::Soft;
 
-        $this->workingDirectory = realpath(dirname(__DIR__).'/bin');
+        $this->workingDirectory = realpath(dirname(__DIR__) . '/bin');
     }
 
     public function keepComments(bool $keepComments = true): self
@@ -174,7 +174,7 @@ class Mjml
         }
 
         return [
-            (new ExecutableFinder)->find('node', 'node', $extraDirectories),
+            (new ExecutableFinder())->find('node', 'node', $extraDirectories),
             'mjml.mjs',
             base64_encode(json_encode(array_values($arguments))),
         ];
