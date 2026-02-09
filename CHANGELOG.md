@@ -2,6 +2,25 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.2.6 - 2026-02-09
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/34
+* Bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/36
+* Update issue template by @AlexVanderbist in https://github.com/spatie/mjml-php/pull/38
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/47
+* Bump actions/setup-node from 4 to 6 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/41
+* Bump stefanzweifel/git-auto-commit-action from 5 to 7 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/40
+* Add Symfony 8 and PHP 8.5 support by @freekmurze in https://github.com/spatie/mjml-php/pull/48
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/mjml-php/pull/38
+* @freekmurze made their first contribution in https://github.com/spatie/mjml-php/pull/48
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.2.5...1.2.6
+
 ## 1.2.5 - 2025-03-17
 
 ### What's Changed
