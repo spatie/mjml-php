@@ -1,7 +1,7 @@
 # Convert MJML to HTML using PHP
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/mjml-php.svg?style=flat-square)](https://packagist.org/packages/spatie/mjml-php)
-[![Tests](https://img.shields.io/github/actions/workflow/status/spatie/mjml-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/spatie/mjml-php/actions/workflows/run-tests.yml)
+[![Tests](https://github.com/spatie/mjml-php/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/mjml-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/mjml-php.svg?style=flat-square)](https://packagist.org/packages/spatie/mjml-php)
 
 [MJML](https://mjml.io) is a markup language designed to reduce the pain of coding a responsive email. Our `mjml-php` package can convert MJML to HTML.
