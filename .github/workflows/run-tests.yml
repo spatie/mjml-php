@@ -11,8 +11,9 @@ jobs:
         os: [ubuntu-latest]
         php: [8.5, 8.4, 8.3, 8.2]
         stability: [prefer-stable]
+        mjml: ['^4.15.3', '^5.0.0']
 
-    name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - MJML ${{ matrix.mjml }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
@@ -40,5 +41,5 @@ jobs:
 
       - name: Execute tests
         run: |
-          npm install
+          npm install "mjml@${{ matrix.mjml }}"
           vendor/bin/pest
