@@ -2,6 +2,22 @@
 
 All notable changes to `mjml-php` will be documented in this file.
 
+## 1.3.0 - 2026-07-23
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/50
+* Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/51
+* Bump actions/checkout from 4 to 7 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/52
+* Officially support MJML v5 by @NickBevers in https://github.com/spatie/mjml-php/pull/54
+* Bump actions/setup-node from 6 to 7 by @dependabot[bot] in https://github.com/spatie/mjml-php/pull/53
+
+### New Contributors
+
+* @NickBevers made their first contribution in https://github.com/spatie/mjml-php/pull/54
+
+**Full Changelog**: https://github.com/spatie/mjml-php/compare/1.2.6...1.3.0
+
 ## 1.2.6 - 2026-02-09
 
 ### What's Changed
